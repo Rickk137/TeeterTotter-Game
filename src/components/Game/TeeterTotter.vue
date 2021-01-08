@@ -2,7 +2,7 @@
   <div>
     <div
       id="seasaw"
-      :style="{transform: `rotate(${this.sesawAngle}deg)`}"
+      :style="seasawStyle"
     >
       <Item
         v-for="item in rightItems"
@@ -31,7 +31,13 @@ export default {
   },
   computed: {
     ...mapState(['rightItems', 'leftItems']),
-    ...mapGetters(['sesawAngle'])
+    ...mapGetters(['sesawAngle']),
+    seasawStyle () {
+      return {
+        transform: `rotate(${this.sesawAngle}deg)`,
+        transitionDuration: `${2500 / (Math.abs(this.sesawAngle) + 1)}ms`
+      }
+    }
   },
 }
 </script>

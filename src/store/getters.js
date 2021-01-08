@@ -10,7 +10,6 @@ const getters = {
 
     return (rightSum - leftSum) / 50;
   },
-  bendingSpeed() {},
 };
 
 export default getters;
