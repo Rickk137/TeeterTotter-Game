@@ -30,10 +30,8 @@ export default {
     Item,
   },
   computed: {
-    ...mapState(['rightItems', 'leftItems']),
-    sesawAngle () {
-      return 10
-    }
+    ...mapState(['rightItems', 'leftItems', 'sesawAngle']),
+
   },
 }
 </script>

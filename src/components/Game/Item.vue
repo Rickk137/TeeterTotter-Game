@@ -18,6 +18,10 @@ export default {
     rightItem: {
       type: Boolean,
       default: false
+    },
+    onBoard: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
@@ -53,7 +57,9 @@ export default {
       else {
         this.$el.style.backgroundColor = color;
       }
-      this.$el.style.transform += 'translateY(-100%)';
+      if (this.onBoard) {
+        this.$el.style.transform += 'translateY(-100%)';
+      }
     }
   },
 
