@@ -49,7 +49,6 @@ export default {
   },
   watch: {
     sesawAngle (newValue) {
-      console.log('newVa;:', newValue)
       if (Math.abs(newValue) > 30)
         this.setGameStatus('end')
     }

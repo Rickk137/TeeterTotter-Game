@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-20">
     <button
       @click="toggleGameStatus"
       class="btn primary"
