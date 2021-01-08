@@ -3,12 +3,12 @@ import { SHAPES } from '../config';
 
 const actions = {
   hitTheSeasaw({ state, commit, dispatch }, newLeft) {
-    console.log('hitTheSeasaw!');
     const item = state.fallingItems[0];
 
     commit('ADD_ITEM', { item: { ...item, left: newLeft }, position: 'left' });
     commit('REMOVE_FALLING_ITEM');
 
+    dispatch('createItem', 'right');
     dispatch('createItem', 'falling');
   },
   createItem({ state, commit }, position = 'right') {

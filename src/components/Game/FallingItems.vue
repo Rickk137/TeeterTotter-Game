@@ -12,7 +12,7 @@
 
 <script>
 
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import Item from "./Item";
 
 export default {
@@ -35,12 +35,13 @@ export default {
     this.calcBottomLimit();
 
   },
-  destroyed () {
+  beforeDestroy () {
     window.removeEventListener('keydown', this.moveItem);
     clearInterval(this.fallingIntervalId);
   },
   computed: {
-    ...mapState(['fallingItems', 'sesawAngle']),
+    ...mapState(['fallingItems']),
+    ...mapGetters(['sesawAngle']),
     fallingItem () {
       return this.fallingItems[0]
     },
@@ -55,7 +56,6 @@ export default {
     sesawEl () {
       return document.getElementById('seasaw');
     },
-
   },
   methods: {
     ...mapActions(['hitTheSeasaw']),
@@ -63,9 +63,7 @@ export default {
 
       const fallingItem = this.fallingItemEl.getBoundingClientRect();
       const fallingWrapper = this.fallingWrapperEl.getBoundingClientRect();
-      const newLeft = ((fallingItem.left - fallingWrapper.left - fallingItem.width) * 100) / fallingWrapper.width;
-
-      console.log(((fallingItem.left - fallingWrapper.left) * 100) / fallingWrapper.width)
+      const newLeft = ((fallingItem.left - fallingWrapper.left - Math.tan(this.sesawAngle * Math.PI / 180) * fallingItem.width) * 100) / fallingWrapper.width;
 
       this.fallingItemTop = 0;
       this.hitTheSeasaw(newLeft);

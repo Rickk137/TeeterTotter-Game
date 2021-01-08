@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Item from "./Item";
 
 export default {
@@ -30,8 +30,8 @@ export default {
     Item,
   },
   computed: {
-    ...mapState(['rightItems', 'leftItems', 'sesawAngle']),
-
+    ...mapState(['rightItems', 'leftItems']),
+    ...mapGetters(['sesawAngle'])
   },
 }
 </script>
