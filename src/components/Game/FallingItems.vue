@@ -52,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['fallingItems', 'status']),
+    ...mapState(['fallingItems', 'status', 'dropSpeed']),
     ...mapGetters(['sesawAngle']),
     fallingItem () {
       return this.fallingItems[0]
@@ -72,14 +72,17 @@ export default {
   methods: {
     ...mapActions(['hitTheSeasaw']),
     ...mapMutations({
-      move: MUTATION_TYPES.MOVE_ITEM
+      move: MUTATION_TYPES.MOVE_ITEM,
     }),
+    ...mapMutations([MUTATION_TYPES.SET_DROP_SPEED]),
     nextItem () {
       const fallingItem = this.fallingItemEl.getBoundingClientRect();
       const fallingWrapper = this.fallingWrapperEl.getBoundingClientRect();
       const newLeft = ((fallingItem.left - fallingWrapper.left - Math.tan(this.sesawAngle * Math.PI / 180) * fallingItem.width) * 100) / fallingWrapper.width;
 
       this.fallingItemTop = 0;
+
+      this.setDropSpeed(this.dropSpeed + 1);
       this.hitTheSeasaw(newLeft);
       this.startFalling();
       this.calcBottomLimit();
@@ -107,7 +110,7 @@ export default {
           this.fallingItemTop += 1;
           this.fallingItemEl.style.top = `${this.fallingItemTop}px`;
         }
-      }, 10)
+      }, 20 / this.dropSpeed)
     },
     moveItem (e) {
       if (e.keyCode !== 39 && e.keyCode !== 37)
@@ -134,7 +137,6 @@ export default {
 <style lang="scss" scoped>
 #falling-wrapper {
   height: 50vh;
-  background: #eaeaea;
   position: relative;
 }
 .falling-item {

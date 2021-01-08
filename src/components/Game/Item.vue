@@ -69,9 +69,10 @@ export default {
 <style lang="scss" scoped>
 .item {
   position: absolute;
+  transition: left 100ms ease-in;
   .weight {
     color: white;
-    font-size: 20px;
+    font-size: 15px;
   }
 
   &.circle {

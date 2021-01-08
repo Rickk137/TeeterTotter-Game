@@ -13,6 +13,9 @@ const mutations = {
   setGameStatus(state, status) {
     state.status = status;
   },
+  setDropSpeed(state, speed) {
+    state.dropSpeed = speed;
+  },
 };
 
 export default mutations;

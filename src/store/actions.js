@@ -16,7 +16,7 @@ const actions = {
     dispatch('createItem', 'falling');
   },
   createItem({ state, commit }, position = 'right') {
-    const range = position === 'right' ? [5, 50] : [0, 45];
+    const range = position === 'right' ? [10, 45] : [5, 40];
     const weight = randomNumberGenerator(1, 10);
     const left = randomNumberGenerator(range[0], range[1]);
     const shape = randomNumberGenerator(0, SHAPES.length - 1);
@@ -40,7 +40,6 @@ const actions = {
   startGame({ dispatch }) {
     dispatch('createItem', 'falling');
     dispatch('createItem', 'falling');
-
     dispatch('createItem', 'right');
   },
 };

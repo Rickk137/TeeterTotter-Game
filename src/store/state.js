@@ -4,6 +4,7 @@ const state = {
   rightItems: [],
 
   status: '',
+  dropSpeed: 1,
 };
 
 export default state;
