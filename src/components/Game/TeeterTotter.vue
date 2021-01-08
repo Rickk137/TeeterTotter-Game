@@ -1,17 +1,36 @@
 <template>
   <div>
-    TeeterTotter
     <div
       class="seasaw"
       :style="{transform: `rotate(${this.sesawAngle}deg)`}"
-    />
+    >
+      <Item
+        v-for="item in rightItems"
+        :key="item.id"
+        :item="item"
+        :rightItem="true"
+      />
+
+      <Item
+        v-for="item in leftDroppedItems"
+        :key="item.id"
+        :item="item"
+      />
+    </div>
     <div class="pivot" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import Item from "./Item";
+
 export default {
+  components: {
+    Item,
+  },
   computed: {
+    ...mapState(['rightItems', 'leftDroppedItems']),
     sesawAngle () {
       return 10
     }

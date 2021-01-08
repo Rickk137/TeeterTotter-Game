@@ -1,16 +1,27 @@
 <template>
   <div class="game layout-v ">
-    <div style="height: 500px;background: #eaeaea;">fall</div>
+    <FallingObjects />
     <TeeterTotter />
   </div>
 </template>
 
 <script>
-import TeeterTotter from "./TeeterTotter"
+import { mapActions } from 'vuex';
+
+import TeeterTotter from "./TeeterTotter";
+import FallingObjects from "./FallingObjects";
+
 export default {
   components: {
     TeeterTotter,
+    FallingObjects
   },
+  created () {
+    this.startGame();
+  },
+  methods: {
+    ...mapActions(['startGame'])
+  }
 }
 </script>
 
