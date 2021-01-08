@@ -23,12 +23,20 @@ export default {
   },
   data () {
     return {
-      sesaw: null
+      sesaw: null,
+      fallingItemTop: 0,
+      fallingIntervalId: null,
+
     }
   },
   mounted () {
     window.addEventListener('keydown', this.moveItem);
     this.sesaw = document.getElementById('seasaw');
+    // this.startFalling();
+  },
+  destroyed () {
+    window.removeEventListener('keydown', this.moveItem);
+    clearInterval(this.fallingIntervalId);
   },
   computed: {
     ...mapState(['fallingItems']),
@@ -45,13 +53,17 @@ export default {
     }
   },
   methods: {
+    startFalling () {
+      this.fallingIntervalId = setInterval(() => {
+        this.fallingItemTop += 1;
+        this.fallingItemEl.style.top = `${this.fallingItemTop}px`;
+      }, 10)
+    },
     moveItem (e) {
       if (!e.keyCode === 39 && !e.keyCode === 37)
         return;
 
       const { left } = this.fallingItem;
-
-
       const wrapperWidth = this.fallingWrapperEl.getBoundingClientRect().width;
       const itemWidth = this.fallingItemEl.getBoundingClientRect().width;
       const fraction = itemWidth / wrapperWidth * 100;
