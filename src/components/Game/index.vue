@@ -1,5 +1,6 @@
 <template>
-  <div class="game layout-v ">
+  <div class="game layout-v">
+    <Result />
     <Info />
     <Actions />
     <FallingItems />
@@ -14,13 +15,15 @@ import TeeterTotter from "./TeeterTotter";
 import FallingItems from "./FallingItems";
 import Actions from "./Actions";
 import Info from "./Info"
+import Result from "./Result"
 
 export default {
   components: {
     TeeterTotter,
     FallingItems,
     Actions,
-    Info
+    Info,
+    Result
   },
   created () {
     this.startGame();

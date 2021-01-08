@@ -42,6 +42,14 @@ const actions = {
     dispatch('createItem', 'falling');
     dispatch('createItem', 'right');
   },
+
+  resetGame({ dispatch, commit }) {
+    commit(MUTATION_TYPES.RESET);
+
+    dispatch('createItem', 'falling');
+    dispatch('createItem', 'falling');
+    dispatch('createItem', 'right');
+  },
 };
 
 export default actions;

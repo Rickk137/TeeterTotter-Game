@@ -16,6 +16,13 @@ const mutations = {
   setDropSpeed(state, speed) {
     state.dropSpeed = speed;
   },
+  reset(state) {
+    state.fallingItems = [];
+    state.leftItems = [];
+    state.rightItems = [];
+    state.status = 'play';
+    state.dropSpeed = 1;
+  },
 };
 
 export default mutations;
