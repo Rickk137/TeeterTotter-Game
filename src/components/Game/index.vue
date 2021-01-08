@@ -1,5 +1,6 @@
 <template>
   <div class="game layout-v ">
+    <Actions />
     <FallingItems />
     <TeeterTotter />
   </div>
@@ -10,11 +11,13 @@ import { mapActions } from 'vuex';
 
 import TeeterTotter from "./TeeterTotter";
 import FallingItems from "./FallingItems";
+import Actions from "./Actions";
 
 export default {
   components: {
     TeeterTotter,
-    FallingItems
+    FallingItems,
+    Actions
   },
   created () {
     this.startGame();

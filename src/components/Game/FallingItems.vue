@@ -6,14 +6,16 @@
       :key="item.id"
       :item="item"
       :onBoard="false"
+      class="falling-item"
     />
   </div>
 </template>
 
 <script>
 
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex';
 import Item from "./Item";
+import MUTATION_TYPES from '../../store/mutation-types';
 
 export default {
   components: {
@@ -33,14 +35,24 @@ export default {
     this.sesaw = document.getElementById('seasaw');
     this.startFalling();
     this.calcBottomLimit();
-
   },
   beforeDestroy () {
     window.removeEventListener('keydown', this.moveItem);
     clearInterval(this.fallingIntervalId);
   },
+  watch: {
+    status (newValue) {
+      if (newValue === 'play') {
+        window.addEventListener('keydown', this.moveItem);
+        this.startFalling();
+      } else {
+        clearInterval(this.fallingIntervalId);
+        window.removeEventListener('keydown', this.moveItem);
+      }
+    }
+  },
   computed: {
-    ...mapState(['fallingItems']),
+    ...mapState(['fallingItems', 'status']),
     ...mapGetters(['sesawAngle']),
     fallingItem () {
       return this.fallingItems[0]
@@ -59,8 +71,10 @@ export default {
   },
   methods: {
     ...mapActions(['hitTheSeasaw']),
+    ...mapMutations({
+      move: MUTATION_TYPES.MOVE_ITEM
+    }),
     nextItem () {
-
       const fallingItem = this.fallingItemEl.getBoundingClientRect();
       const fallingWrapper = this.fallingWrapperEl.getBoundingClientRect();
       const newLeft = ((fallingItem.left - fallingWrapper.left - Math.tan(this.sesawAngle * Math.PI / 180) * fallingItem.width) * 100) / fallingWrapper.width;
@@ -81,10 +95,13 @@ export default {
       this.topLimit = fallingWrapper.height - a - fallingItem.height;
     },
     startFalling () {
+      if (this.fallingIntervalId) clearInterval(this.fallingIntervalId)
+
       this.fallingIntervalId = setInterval(() => {
         if (this.fallingItemTop > this.topLimit) {
-          this.nextItem();
           clearInterval(this.fallingIntervalId);
+          this.fallingIntervalId = null;
+          this.nextItem();
         }
         else {
           this.fallingItemTop += 1;
@@ -107,7 +124,8 @@ export default {
       this.calcBottomLimit();
 
       const amount = e.keyCode === 39 ? 1 : -1;
-      this.$store.commit('MOVE_ITEM', amount);
+      // this.$store.commit('MOVE_ITEM', amount);
+      this.move(amount)
     }
   },
 }
@@ -118,5 +136,8 @@ export default {
   height: 50vh;
   background: #eaeaea;
   position: relative;
+}
+.falling-item {
+  z-index: 1;
 }
 </style>
