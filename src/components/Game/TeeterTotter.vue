@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="seasaw"
+      id="#seasaw"
       :style="{transform: `rotate(${this.sesawAngle}deg)`}"
     >
       <Item
@@ -12,7 +12,7 @@
       />
 
       <Item
-        v-for="item in leftDroppedItems"
+        v-for="item in leftItems"
         :key="item.id"
         :item="item"
       />
@@ -30,7 +30,7 @@ export default {
     Item,
   },
   computed: {
-    ...mapState(['rightItems', 'leftDroppedItems']),
+    ...mapState(['rightItems', 'leftItems']),
     sesawAngle () {
       return 10
     }
@@ -48,7 +48,7 @@ export default {
   height: 0;
   margin: auto;
 }
-.seasaw {
+#seasaw {
   height: 5px;
   width: 100%;
   background-color: red;

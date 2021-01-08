@@ -1,7 +1,10 @@
 const mutations = {
+  MOVE_ITEM(state, amount) {
+    state.fallingItems[0].left += amount;
+  },
   ADD_ITEM(state, { item, position }) {
-    if (position === 'left') state.leftFallingItems.push(item);
-    if (position === 'dropped') state.leftDroppedItems.push(item);
+    if (position === 'falling') state.fallingItems.push(item);
+    else if (position === 'left') state.leftItems.push(item);
     else state.rightItems.push(item);
   },
 };

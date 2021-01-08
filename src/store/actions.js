@@ -8,8 +8,8 @@ const actions = {
     const shape = randomNumberGenerator(0, SHAPES.length - 1);
     const color = randomColorGenerator();
     const id =
-      state.leftFallingItems.length +
-      state.leftDroppedItems.length +
+      state.fallingItems.length +
+      state.leftItems.length +
       state.rightItems.length;
 
     const item = {
@@ -24,6 +24,8 @@ const actions = {
   },
 
   startGame({ dispatch }) {
+    dispatch('createItem', 'falling');
+
     dispatch('createItem', 'right');
     dispatch('createItem', 'right');
   },

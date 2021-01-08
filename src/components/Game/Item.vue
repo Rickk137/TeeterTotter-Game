@@ -31,7 +31,7 @@ export default {
     this.updateItemPosition(this.item.left);
   },
   watch: {
-    left (newVal) {
+    'item.left' (newVal) {
       this.updateItemPosition(newVal);
     }
   },

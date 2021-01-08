@@ -1,7 +1,6 @@
 const state = {
-  leftFallingItems: [],
-  leftDroppedItems: [],
-
+  fallingItems: [],
+  leftItems: [],
   rightItems: [],
 };
 
