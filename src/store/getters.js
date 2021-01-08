@@ -8,7 +8,9 @@ const getters = {
       return sum + current.weight * current.left;
     }, 0);
 
-    return (rightSum - leftSum) / 50;
+    // if (rightSum - leftSum > 20 && leftSum > 0) return 31;
+
+    return (rightSum - leftSum) / 30;
   },
 };
 

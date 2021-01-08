@@ -42,7 +42,6 @@ const actions = {
     dispatch('createItem', 'falling');
 
     dispatch('createItem', 'right');
-    dispatch('createItem', 'right');
   },
 };
 

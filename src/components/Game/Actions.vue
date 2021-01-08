@@ -3,6 +3,7 @@
     <button
       @click="toggleGameStatus"
       class="btn primary"
+      :disabled="status === 'end'"
     >
       <span>{{ buttonLabel }}</span>
     </button>
@@ -17,13 +18,14 @@ export default {
   computed: {
     ...mapState(['status']),
     buttonLabel () {
-      return this.status === 'pause' ? 'play' : 'pause'
+      return this.status === 'pause' ? 'continue' : 'pause'
     }
   },
   methods: {
     ...mapMutations([MUTATION_TYPES.SET_GAME_STATUS]),
     toggleGameStatus () {
-      this.setGameStatus(this.buttonLabel)
+      this.setGameStatus(this.status === 'pause' ? 'play' : 'pause'
+      )
     }
   },
 }
