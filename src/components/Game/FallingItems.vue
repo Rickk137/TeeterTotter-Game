@@ -27,13 +27,16 @@ export default {
     }
   },
   mounted () {
-    window.addEventListener('keydown', this.moveShape);
+    window.addEventListener('keydown', this.moveItem);
     this.sesaw = document.getElementById('seasaw');
   },
   computed: {
     ...mapState(['fallingItems']),
+    fallingItem () {
+      return this.fallingItems[0]
+    },
     fallingItemEl () {
-      if (this.fallingItems[0])
+      if (this.fallingItem)
         return document.getElementById('item-' + this.fallingItems[0].id);
       return null
     },
@@ -42,9 +45,19 @@ export default {
     }
   },
   methods: {
-    moveShape (e) {
+    moveItem (e) {
       if (!e.keyCode === 39 && !e.keyCode === 37)
         return;
+
+      const { left } = this.fallingItem;
+
+
+      const wrapperWidth = this.fallingWrapperEl.getBoundingClientRect().width;
+      const itemWidth = this.fallingItemEl.getBoundingClientRect().width;
+      const fraction = itemWidth / wrapperWidth * 100;
+
+      if (e.keyCode === 39 && (left + fraction) > 49) return;
+      if (e.keyCode === 37 && left < 1) return;
 
       const amount = e.keyCode === 39 ? 1 : -1;
       this.$store.commit('MOVE_ITEM', amount);

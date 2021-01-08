@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      id="#seasaw"
+      id="seasaw"
       :style="{transform: `rotate(${this.sesawAngle}deg)`}"
     >
       <Item
