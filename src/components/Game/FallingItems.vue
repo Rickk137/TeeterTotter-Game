@@ -12,7 +12,7 @@
 
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Item from "./Item";
 
 export default {
@@ -58,6 +58,20 @@ export default {
 
   },
   methods: {
+    ...mapActions(['hitTheSeasaw']),
+    nextItem () {
+
+      const fallingItem = this.fallingItemEl.getBoundingClientRect();
+      const fallingWrapper = this.fallingWrapperEl.getBoundingClientRect();
+      const newLeft = ((fallingItem.left - fallingWrapper.left - fallingItem.width) * 100) / fallingWrapper.width;
+
+      console.log(((fallingItem.left - fallingWrapper.left) * 100) / fallingWrapper.width)
+
+      this.fallingItemTop = 0;
+      this.hitTheSeasaw(newLeft);
+      this.startFalling();
+      this.calcBottomLimit();
+    },
     calcBottomLimit () {
       const fallingItem = this.fallingItemEl.getBoundingClientRect();
       const fallingWrapper = this.fallingWrapperEl.getBoundingClientRect();
@@ -71,7 +85,8 @@ export default {
     startFalling () {
       this.fallingIntervalId = setInterval(() => {
         if (this.fallingItemTop > this.topLimit) {
-          this.x = 1;
+          this.nextItem();
+          clearInterval(this.fallingIntervalId);
         }
         else {
           this.fallingItemTop += 1;
