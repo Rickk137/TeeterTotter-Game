@@ -1,4 +1,7 @@
-# teeter-totter-game
+# Teeter-Totter-Game
+
+[Check Here](https://peyman-teeter-totter.netlify.app).
+
 
 ## Project setup
 ```
